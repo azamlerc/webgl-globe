@@ -321,16 +321,32 @@ DAT.Globe = function(container, opts) {
   }
 
   function onDocumentKeyDown(event) {
-    switch (event.keyCode) {
-      case 38:
+    let step = 0.2;
+    switch (event.key) {
+      case "ArrowUp":
+        target.y -= step;
+        if (target.y < - PI_HALF) target.y = - PI_HALF;
+        break;
+      case "ArrowLeft":
+        target.x += step;
+        break;
+      case "ArrowRight":
+        target.x -= step;
+        break;
+      case "ArrowDown":
+        target.y += step;
+        if (target.y > PI_HALF) target.y = PI_HALF;
+        break;
+      case "Enter":
         zoom(100);
-        event.preventDefault();
         break;
-      case 40:
+      case "Escape":
         zoom(-100);
-        event.preventDefault();
         break;
+      default:
+        return;
     }
+    event.preventDefault();
   }
 
   function onWindowResize( event ) {
